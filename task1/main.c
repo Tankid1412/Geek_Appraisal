@@ -2,8 +2,6 @@
 #include<math.h>
 int main()
 {
-	printf("Hello");
-
 	double a=acos(-1);
 	double xm;
 	xm=pow(25,a);
