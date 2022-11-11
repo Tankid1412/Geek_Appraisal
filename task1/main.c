@@ -1,6 +1,7 @@
 #include<stdio.h>
 int main()
 {
+	
 	double a = 1;	//定义并给初值赋值
 	double x = 0;	//定义x和y,并初始化 
 	double y = a;
@@ -17,5 +18,6 @@ int main()
 	
 	printf("final stationary state is %lf",y);	//输出最终定态 
 	return 0;
+	
 }
 
