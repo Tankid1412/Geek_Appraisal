@@ -1,34 +1,21 @@
 #include<stdio.h>
-#include<math.h>
 int main()
 {
-	double a=acos(-1);
-	double xm;
-	xm=pow(25,a);
-	
-	double h=0.001;
-	
-	double x,y;
-	printf(" x\ty\t\n");
-	x=0;
-	y=a;
-	printf("%6.3lf\t%6.6lf\t\n",x,y);
-	do
+	double a = 1;	//定义并给初值赋值
+	double x = 0;	//定义x和y,并初始化 
+	double y = a;
+	printf("x\t\ty\n");	//在屏幕上显示x,y
+	while (0.001 * y >= 1e-6)	//迭代计算，当y前后两值之差小于步长的0.0001倍时终止 
 	{
-		x=x+h;
-		y=y-h*y;
-		
-		if(x>=0.001&&x<=0.011) printf("%6.3lf\t%6.6lf\n",x,y);
-		else if(x>=0.012&&x<=0.013)  printf("......\t......\n");
-		else if(x>=0.014&&x<=6.893)  continue;
-		else if(x>=6.894&&x<=6.895)  printf("......\t......\n");
-		else if(x>=6.896&&x<=6.906) printf("%6.3lf\t%6.6lf\n",x,y);
-		else continue;
+		if(x<=0.011||x>6.89)	//if语句是为了控制输出x和y数据 
+		{
+			printf("%lf\t%lf\n", x, y);	//输出各个瞬时x和y
+		}
+		x = x + 0.001;	//上一轮输出后，x加一个步长 
+		y = y - 0.001 * y;	//Eluer公式计算x对应的y的瞬间值 
 	}
-	while(h*y>=1e-6);
-	printf("\n\n");
-	printf("The final steady state is  %lf\n\n",y);
 	
+	printf("final stationary state is %lf",y);	//输出最终定态 
 	return 0;
-	 
-} 
+}
+

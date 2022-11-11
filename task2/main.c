@@ -11,21 +11,22 @@ void findMin(int ii[],int huffman[][4],int n);
 //对每个叶节点进行哈夫曼编码
 void HuffmanCode(int i,int huffman[][4],int n);
 //交换两个char型数据
-void inplace_swap(char *x,char *y);
-char letter[53];
+void inplace_swap(int forst,int last);
+
+char letter[53];	//存入哈夫曼树各叶结点对应的字母 
+char code[30];  //char数组填充编码
+
 int main()
 {
     //对输入的字符串进行记录，对字符的总个数count以及各个字符的出现次数arr_small[]进行统计
     char str[100]={'A','B','B','C','C','C','C','\0'};
-    printf("Please Enter the string\n");
-    printf("ABBCCCC\n");
-	//scanf("%s", str);
-    int arr_big[53] = {0};  //各个字符的出现次数
-    char letter_[53];
+    printf("ABBCCCC\n");	//提示输入的字符串 
+    int arr_big[27] = {0};  //各个字符的出现次数
+    char letter_[27];	//暂时存入哈夫曼树各叶结点对应的字母
 	int count = 0;  //字符的总个数
 	for(unsigned i = 0; i < strlen(str); i++)    //遍历输入字符串中的所有字符
     {
-        for(int j = 0; j < 53; j++) //遍历26个大写字母
+        for(int j = 0; j < 27; j++) //遍历26个大写字母
         {
             if(str[i] == (char)('A' + j))
             {
@@ -174,7 +175,6 @@ int findParent(int i,int huffman[][4],int n)
 //子函数——对每个叶节点进行哈夫曼编码并进行打印
 void HuffmanCode(int i,int huffman[][4],int n)
 {
-    char code[30];  //char数组填充编码
     int current=i;  //定义当前访问的结点
     int father = huffman[i][0]; //定义当前结点的父节点
     int start=0;    //每次编码的位置，初始为编码倒数位置
@@ -198,16 +198,17 @@ void HuffmanCode(int i,int huffman[][4],int n)
     for(first = 0, last = start-1; first < last; first++,last--)
     {
         //对调数组内部元素
-        inplace_swap(&code[first], &code[last]);	/*该函数可自己重写*/
+        inplace_swap(first,last);	/*该函数可自己重写*/
     }
 
     printf("%c Huffman code:  %s\n",letter[i],code);    //打印字符的huffman编码
 }
 
 //子函数——交换两个char型数据（使用了布尔运算），可自己另外用可读性较好的方法重新实现改函数
-void inplace_swap(char *x,char *y)
+void inplace_swap(int first,int last)
 {
-    *y = *x ^ *y;
-    *x = *x ^ *y;
-    *y = *x ^ *y;
+    char i;	 
+    i=code[first];	//i暂时储存code[first]的值 
+	code[first]=code[last];	//code[first]换成code[last]的值 
+	code[last]=i; 	//code[last]换成code[first]的值 
 }
